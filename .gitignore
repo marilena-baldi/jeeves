@@ -1,0 +1,5 @@
+__pycache__
+.env
+!stack/.env
+stack/data
+logs

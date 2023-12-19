@@ -1,9 +1,9 @@
 from collections import defaultdict
 
 class ChatHandler:
-    def __init__(self):
+    def __init__(self, max_size=None):
         self.conversations = defaultdict(list)
-        self.max_size = None # 30
+        self.max_size = max_size
 
     def add_message(self, chat_id, username, message):
         role = "assistant" if username is None else "user"

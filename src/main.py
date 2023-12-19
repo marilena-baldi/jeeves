@@ -27,7 +27,6 @@ def chat(message):
 
     conversation = chat_handler.add_message(message.chat.id, message.from_user.username, message.text)
     ollama_response = ai_chat(conversation)
-    logger.info('Ollama response: ', ollama_response)
 
     reply_messages = parse_message(ollama_response)
     for reply_message in reply_messages:

@@ -30,7 +30,7 @@ def chat(message):
 
     reply_messages = parse_message(ollama_response)
     for reply_message in reply_messages:
-        logger.info('%s - %s (%s) - %s', '-1', "jeeves", message.chat.id, message.from_user.id, message.from_user.username, reply_message)
+        logger.info('%s - %s (%s) - %s', message.chat.id, "-1", "jeeves", reply_message)
         chat_handler.add_message(message.chat.id, None, reply_message)
         bot.reply_to(message, reply_message, parse_mode="Markdown")
 

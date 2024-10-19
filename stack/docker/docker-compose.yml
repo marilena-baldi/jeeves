@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ../../
+      dockerfile: ./stack/docker/python/Dockerfile
+      target: ${DOCKER_TARGET:-base}
+    env_file:
+      - ../../.env
+    volumes:
+      - ../../src/:/app/
+      - ../../stack/logs:/app/logs
+    restart: always
+
+  ollama:
+    image: ollama/ollama
+    ports:
+      - 11434:11434
+    volumes:
+      - ./data/ollama:/root/ollama
+    env_file:
+      - ../../.env
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

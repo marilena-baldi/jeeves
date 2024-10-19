@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-DOCKER-COMPOSE := docker-compose -f ./stack/docker-compose.yml
+DOCKER-COMPOSE := docker compose -f ./stack/docker/docker-compose.yml
 SERVICE_NAME ?= app
 
 include .env

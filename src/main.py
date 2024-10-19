@@ -1,12 +1,13 @@
-import os
 import telebot
-from utils.logger import logger
-from utils.ai import ai_chat
-from utils.utils import parse_message, info_menu
-from utils.chat_handler import ChatHandler
+from lib import di
 
-bot = telebot.TeleBot(os.environ.get("BOT_TOKEN"))
-chat_handler = ChatHandler()
+bot = telebot.TeleBot(di['bot_token'])
+chat_handler = di['chat_handler']
+assistant = di['assistant']
+logger = di['logger']
+info_menu = di['info_menu']
+error_message = di['error_message']
+
 
 @bot.message_handler(commands=['new'])
 def new(message):
@@ -26,12 +27,12 @@ def chat(message):
     bot.send_chat_action(message.chat.id, "typing")
 
     conversation = chat_handler.add_message(message.chat.id, message.from_user.username, message.text)
-    ollama_response = ai_chat(conversation)
+    response = assistant.chat(conversation)
 
-    reply_messages = parse_message(ollama_response)
+    reply_messages = chat_handler.parse_message(response) if response else [error_message]
     for reply_message in reply_messages:
         logger.info('%s - %s (%s) - %s', message.chat.id, "-1", "jeeves", reply_message)
         chat_handler.add_message(message.chat.id, None, reply_message)
-        bot.reply_to(message, reply_message, parse_mode="Markdown")
+        bot.send_message(message.chat.id, reply_message)
 
 bot.infinity_polling()

@@ -1,5 +1,6 @@
 SHELL := /bin/bash
-DOCKER-COMPOSE := docker compose -f ./stack/docker/docker-compose.yml
+PROFILE ?= default
+DOCKER-COMPOSE := docker compose -f ./stack/docker/docker-compose.yml --profile $(PROFILE)
 SERVICE_NAME ?= app
 
 include .env

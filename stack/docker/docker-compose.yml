@@ -8,6 +8,8 @@ services:
       target: ${DOCKER_TARGET:-base}
     env_file:
       - ../../.env
+    environment:
+      - PROFILE=${PROFILE}
     volumes:
       - ../../src/:/app/
       - ../../stack/logs:/app/logs
@@ -18,9 +20,11 @@ services:
     ports:
       - 11434:11434
     volumes:
-      - ./data/ollama:/root/ollama
+      - ../data/ollama:/root/ollama
     env_file:
       - ../../.env
+    profiles:
+      - ollama
     deploy:
       resources:
         reservations:

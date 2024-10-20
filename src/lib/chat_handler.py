@@ -3,16 +3,16 @@ from kink import inject
 
 @inject
 class ChatHandler:
-    def __init__(self, max_message_size, max_size=None):
+    def __init__(self, max_message_size, max_conversation_size=None):
         self.conversations = defaultdict(list)
-        self.max_size = max_size
+        self.max_conversation_size = max_conversation_size
         self.max_message_size = max_message_size
 
     def add_message(self, chat_id, username, message):
         role = "assistant" if username is None else "user"
         self.conversations[chat_id].append({"role": role, "content": message})
-        if self.max_size:
-            self.conversations[chat_id] = self.conversations[chat_id][-self.max_size:]
+        if self.max_conversation_size:
+            self.conversations[chat_id] = self.conversations[chat_id][-self.max_conversation_size:]
 
         return self.conversations[chat_id]
 

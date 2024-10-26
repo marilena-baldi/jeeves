@@ -6,6 +6,9 @@ from .assistant_open import OpenAssistant
 from .assistant_ollama import OllamaAssistant
 from .command_handler import CommandHandler
 
+di['host_name'] = os.environ.get("HOST_NAME", "")
+di['host_password'] = os.environ.get("HOST_PASSWORD", "")
+
 di['logger'] = logger
 di['bot_token'] = os.environ.get("BOT_TOKEN", "")
 di['max_message_size'] = os.environ.get("MAX_MESSAGE_SIZE", 4096)

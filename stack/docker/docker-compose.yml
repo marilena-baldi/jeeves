@@ -11,6 +11,7 @@ services:
     volumes:
       - ../../src/:/app/
       - ../../stack/logs:/app/logs
+    network_mode: host
     restart: always
 
   ollama:

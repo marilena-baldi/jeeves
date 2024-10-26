@@ -5,6 +5,8 @@ ENV PYTHONPATH=${PROJECT_PATH}
 
 WORKDIR ${PROJECT_PATH}
 
+RUN apt-get update -y && apt-get install -y sshpass
+
 COPY ./src/requirements.txt ./requirements.txt
 RUN pip3 install -r ./requirements.txt
 

@@ -1,9 +1,11 @@
 import telebot
 from kink import inject
+import subprocess
 
 @inject
 class CommandHandler:
-    def __init__(self, bot_token, logger, chat_handler, assistant, start_message, error_message, info_menu):
+    def __init__(self, bot_token, logger, chat_handler, assistant,
+                 start_message, error_message, info_menu, host_name, host_password):
         self.bot = telebot.TeleBot(bot_token)
         self.logger = logger
         self.chat_handler = chat_handler
@@ -11,6 +13,8 @@ class CommandHandler:
         self.start_message = start_message
         self.error_message = error_message
         self.info_menu = info_menu
+        self.host_name = host_name
+        self.host_password = host_password
 
     def new(self, message):
         self.logger.info('%s (%s) - started', message.from_user.id, message.from_user.username)
@@ -23,6 +27,13 @@ class CommandHandler:
 
         self.bot.send_message(message.chat.id, self.info_menu, parse_mode="Markdown")
 
+    def shutdown(self, message):
+        self.logger.info('%s (%s) - shut down', message.from_user.id, message.from_user.username)
+
+        subprocess.run([
+                "sshpass", "-p", self.host_password,
+                "ssh", "-o", "StrictHostKeyChecking=no", f"{self.host_name}@localhost", "sudo", "shutdown", "now",
+        ])
 
     def chat(self, message):
         self.logger.info('%s - %s (%s) - %s', message.chat.id, message.from_user.id, message.from_user.username, message.text)

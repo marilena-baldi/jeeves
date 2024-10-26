@@ -11,6 +11,7 @@ Jeeves is a virtual assistant based on a LLM and running as a Telegram bot.
 The bot has two main commands:
 - `new` to clear the conversation history and start chatting again;
 - `start`/`help`/`info` to show the info menu;
+- `shutdown` to shut down the host machine (to gracefully shut down if you remotely control the device power);
 
 All sent messages are replied by the assistant.
 

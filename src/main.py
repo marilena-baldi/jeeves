@@ -11,6 +11,10 @@ def new(message):
 def start(message):
     bot_handler.start(message)
 
+@bot.message_handler(commands=['shutdown'])
+def shutdown(message):
+    bot_handler.shutdown(message)
+
 @bot.message_handler(func=lambda message: True)
 def chat(message):
     bot_handler.chat(message)

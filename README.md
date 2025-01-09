@@ -2,7 +2,10 @@
 
 - [Description](#description)
 - [Features](#features)
+- [Dependencies](#dependencies)
 - [Getting started](#getting-started)
+    - [Start Ollama](#start-ollama)
+    - [Start OpenAI](#start-openai)
 
 
 ## Description

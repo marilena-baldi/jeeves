@@ -47,4 +47,4 @@ class CommandHandler:
             self.logger.info('%s - %s (%s) - %s', message.chat.id, "-1", "jeeves", reply_message)
 
             self.chat_handler.add_message(message.chat.id, None, reply_message)
-            self.bot.send_message(message.chat.id, reply_message)
+            self.bot.send_message(message.chat.id, reply_message, parse_mode='MARKDOWN')
